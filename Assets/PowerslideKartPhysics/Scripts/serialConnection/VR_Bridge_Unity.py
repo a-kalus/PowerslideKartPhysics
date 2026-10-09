@@ -44,7 +44,7 @@ MOTORS = [1,2,3,4]
 # Motor 1 - Links Oben
 # Motor 2 - Lift / kranial
 # Motor 3 - Rechts Oben
-# Motor 4 - Descent / kaudal
+# Motor 4 - Descent / kaudal 
 
 PING_TIMEOUT = 10.0
 INIT_TIMEOUT = 20.0
