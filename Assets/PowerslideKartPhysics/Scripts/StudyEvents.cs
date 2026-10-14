@@ -67,33 +67,49 @@ namespace PowerslideKartPhysics
         // break on break trigger
         void OnTriggerEnter(Collider other)
         {
-            //if (other.GetComponent<BoostPad>()) { braking = false; }
-            Debug.Log("Entered: " + other.name);
 
-            if (other.tag == "BrakePoint")
+            HapticTrigger collidedTrigger = null;
+            HapticTrigger.HapticType hapType = HapticTrigger.HapticType.Idle;
+            
+            if (other.GetComponent<HapticTrigger>())
+            {
+                collidedTrigger = other.GetComponent<HapticTrigger>();
+                hapType = collidedTrigger.hapticType;
+
+
+            }
+            //if (other.GetComponent<BoostPad>()) { braking = false; }
+            //Debug.Log("Entered: " + other.name);
+
+            if (hapType == HapticTrigger.HapticType.Brake)
             {
                 braking = true;
                 StartCoroutine(BrakeForSeconds(3f));
                 //nucleo.MoveFront(); "1:H.T-0.5.10s", "3:H.T-0.5.10s
-                InitiateHapticOutput(1, 'H', -0.5f, 1000f);
-                InitiateHapticOutput(3, 'H', -0.5f, 1000f);
+                InitiateHapticOutput(1, 'H', -0.5f * collidedTrigger.intensityMultiplier, 1000f);
+                InitiateHapticOutput(3, 'H', -0.5f * collidedTrigger.intensityMultiplier, 1000f);
             }
 
-            if (other.tag == "JumpPoint")
+            if (hapType == HapticTrigger.HapticType.Jump)
             {
                 //nucleo.MoveUp();
-                InitiateHapticOutput(2, 'H', 0.5f, 2000f);
+                InitiateHapticOutput(2, 'H', 0.7f*collidedTrigger.intensityMultiplier, 2000f);
+
+                // also speed
+                InitiateHapticOutput(1, 'H', 0.7f * collidedTrigger.intensityMultiplier, 1000f);
+                InitiateHapticOutput(3, 'H', 0.7f * collidedTrigger.intensityMultiplier, 1000f);
+
             }
 
-            if (other.tag == "LandingPoint")
+            if (hapType == HapticTrigger.HapticType.Landing)
             {
                 //nucleo.MoveUp();
                 nucleo.Pause();
-                InitiateHapticOutput(4, 'H', 0.5f, 1000f);
+                InitiateHapticOutput(4, 'H', 0.7f, 500f);
 
             }
 
-            if (other.tag == "DriftPoint")
+            if (hapType == HapticTrigger.HapticType.DriftRight)
             {
                 //nucleo.MoveRight(); ["3:H.T0.5.10s",  "1:H.T-0.3.10s"]),
 
@@ -104,12 +120,15 @@ namespace PowerslideKartPhysics
 
 
 
-            if (other.tag == "SpeedPoint")
+            if (hapType == HapticTrigger.HapticType.Speed)
             {
                 //nucleo.MoveBack();
                 // "3:H.T0.5.10s"
-                InitiateHapticOutput(1, 'H', 0.7f, 2000f);
-                InitiateHapticOutput(3, 'H', 0.7f, 2000f);
+
+                float duration = 1600f * collidedTrigger.durationMultiplier;
+
+                InitiateHapticOutput(1, 'H', 0.7f* collidedTrigger.intensityMultiplier, duration);
+                InitiateHapticOutput(3, 'H', 0.7f* collidedTrigger.intensityMultiplier, duration);
             }
 
 

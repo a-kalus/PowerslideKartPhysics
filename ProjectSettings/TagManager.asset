@@ -5,12 +5,6 @@ TagManager:
   serializedVersion: 2
   tags:
   - Walls
-  - BrakePoint
-  - JumpPoint
-  - SpeedPoint
-  - ElevatePoint
-  - LandingPoint
-  - DriftPoint
   layers:
   - Default
   - TransparentFX
