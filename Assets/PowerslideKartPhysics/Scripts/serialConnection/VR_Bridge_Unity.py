@@ -34,7 +34,7 @@ import msvcrt
 
 # ================= KONFIGURATION =================
 
-#MASTER_PORT = "COM5"    # Port zum Master (Nucleo144)4
+#MASTER_PORT = "COM5"    # Port zum Master (Nucleo144)
 MASTER_PORT = "COM4"    # Port zum Master (Nucleo144)
 
 BAUD = 115200

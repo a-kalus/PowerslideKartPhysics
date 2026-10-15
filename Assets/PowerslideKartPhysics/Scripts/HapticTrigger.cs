@@ -14,7 +14,9 @@ public class HapticTrigger : MonoBehaviour
         Speed,
         Brake,
         DriftRight,
-        DriftLeft
+        DriftLeft,
+        CurveRightStart,
+        CurveRightPeak
     }
 
     public HapticTrigger.HapticType hapticType;

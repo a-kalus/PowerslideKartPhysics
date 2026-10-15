@@ -27,6 +27,11 @@ namespace PowerslideKartPhysics
                 kart.SetSteer(1);
                 kart.SetDrift(true);
                 Debug.Log("Force drift");
+
+            }
+
+            if (Input.GetKey("t")) {
+                Debug.Log("TurnAMt: " + kart.GetTurnSpeed());
             }
 
             if (Input.GetKey("b"))
@@ -131,6 +136,22 @@ namespace PowerslideKartPhysics
                 InitiateHapticOutput(3, 'H', 0.7f* collidedTrigger.intensityMultiplier, duration);
             }
 
+
+            if (hapType == HapticTrigger.HapticType.CurveRightStart)
+            {
+
+                nucleo.SendCommand("3:L.T.0.0>T0.3.2000ms");
+                nucleo.SendCommand("1:L.T.0.0>T-0.15.2000ms");
+                Debug.Log("CurveStartAt: "+Time.realtimeSinceStartup * 1000f);
+            }
+
+            if (hapType == HapticTrigger.HapticType.CurveRightPeak)
+            {
+
+                nucleo.SendCommand("3:L.T.0.3>T0.0.800ms");
+                nucleo.SendCommand("1:L.T.-0.15>T0.0.800ms");
+                Debug.Log("CurvePeakAt" +Time.realtimeSinceStartup * 1000f);
+            }
 
         }
 

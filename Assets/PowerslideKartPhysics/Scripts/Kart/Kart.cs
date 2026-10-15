@@ -1237,10 +1237,17 @@ namespace PowerslideKartPhysics
         }
 
         // Set boost input
-        public void SetBoost(bool boostIn) {
+        public void SetBoost(bool boostIn)
+        {
             boostButtonDown = active && !boostButton && boostIn;
             boostButton = active && boostIn;
         }
+
+        // AK getter
+
+        // Positive = turning right, negative = left
+        public float GetTurnSpeed() { return targetTurnSpeed + wallBounceTurn; }
+
 
         void OnDrawGizmosSelected() {
             if (rotator != null) {
